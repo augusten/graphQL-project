@@ -1,0 +1,5 @@
+# import Project from "./generated/prisma.graphql"
+
+type Query {
+    projects: [Project!]!
+}

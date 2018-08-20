@@ -1,0 +1,29 @@
+datamodel:
+  - datamodel.graphql
+
+# OPTIONAL
+# The endpoint represents the HTTP endpoint for your Prisma API. It encodes
+# several pieces of information:
+# * Prisma server (`localhost:4466` in this example)
+# * Service name (`myservice` in this example)
+# * Stage (`dev` in this example)
+# NOTE: When service name and stage are set to `default`, they can be omitted.
+# Meaning http://myserver.com/default/default can be written as http://myserver.com.
+#endpoint: ''
+#endpoint: ''
+endpoint: https://us1.prisma.sh/auguste-nausedaite/dmp-graphql/dmp-graphql
+
+# OPTIONAL
+# The secret is used to create JSON web tokens (JWTs). These tokens need to be
+# attached in the `Authorization` header of HTTP requests against the Prisma endpoint.
+# WARNING: If the secret is not provided, the Prisma API can be accessed
+# without authentication!
+secret: mysecret123
+
+# Deploy hook
+# A deploy hook is invoked when Prisma is done with deploying.
+# In this case, we want to download the schema using the get-schema
+# command and pointing to the database project that was configured in .graphqlconfig.yml.
+hooks:
+  post-deploy:
+    - graphql get-schema --project database
