@@ -1,11 +1,16 @@
 # import Project from "./generated/prisma.graphql"
+# import Integration from "./generated/prisma.graphql"
+# import IntegrationType from "./generated/prisma.graphql"
 
 type Query {
     projects(id: ID): [Project!]!
+    integrations: [Integration!]!
 }
 
 type Mutation {
     addProject(name: String!): Project!
     updateProject(name: String!, id: ID!): Project!
     deleteProject(id: ID!): Project!
+    addIntegration(type: IntegrationType!, project: String!): Integration!
+    deleteIntegration(id: ID!): Integration!
 }

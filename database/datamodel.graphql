@@ -2,4 +2,18 @@ type Project {
     id: ID! @unique
     createdAt: DateTime!
     name: String!
+    integrations: [Integration!]!
+}
+
+enum IntegrationType {
+    GOOGLE_DBM
+    GOOGLE_ADWORDS
+    FACEBOOK
+}
+
+type Integration {
+    id: ID! @unique
+    createdAt: DateTime!
+    type: IntegrationType!
+    project: Project!
 }

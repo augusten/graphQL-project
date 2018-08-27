@@ -1,5 +1,9 @@
 # source: https://us1.prisma.sh/auguste-nausedaite/dmp-graphql/dmp-graphql
-# timestamp: Mon Aug 20 2018 09:32:55 GMT+0200 (CEST)
+# timestamp: Mon Aug 27 2018 10:14:05 GMT+0200 (CEST)
+
+type AggregateIntegration {
+  count: Int!
+}
 
 type AggregateProject {
   count: Int!
@@ -12,6 +16,225 @@ type BatchPayload {
 
 scalar DateTime
 
+type Integration implements Node {
+  id: ID!
+  createdAt: DateTime!
+  type: IntegrationType!
+  project(where: ProjectWhereInput): Project!
+}
+
+"""A connection to a list of items."""
+type IntegrationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [IntegrationEdge]!
+  aggregate: AggregateIntegration!
+}
+
+input IntegrationCreateInput {
+  type: IntegrationType!
+  project: ProjectCreateOneWithoutIntegrationsInput!
+}
+
+input IntegrationCreateManyWithoutProjectInput {
+  create: [IntegrationCreateWithoutProjectInput!]
+  connect: [IntegrationWhereUniqueInput!]
+}
+
+input IntegrationCreateWithoutProjectInput {
+  type: IntegrationType!
+}
+
+"""An edge in a connection."""
+type IntegrationEdge {
+  """The item at the end of the edge."""
+  node: Integration!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum IntegrationOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type IntegrationPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  type: IntegrationType!
+}
+
+type IntegrationSubscriptionPayload {
+  mutation: MutationType!
+  node: Integration
+  updatedFields: [String!]
+  previousValues: IntegrationPreviousValues
+}
+
+input IntegrationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [IntegrationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [IntegrationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [IntegrationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: IntegrationWhereInput
+}
+
+enum IntegrationType {
+  GOOGLE_DBM
+  GOOGLE_ADWORDS
+  FACEBOOK
+}
+
+input IntegrationUpdateInput {
+  type: IntegrationType
+  project: ProjectUpdateOneWithoutIntegrationsInput
+}
+
+input IntegrationUpdateManyWithoutProjectInput {
+  create: [IntegrationCreateWithoutProjectInput!]
+  connect: [IntegrationWhereUniqueInput!]
+  disconnect: [IntegrationWhereUniqueInput!]
+  delete: [IntegrationWhereUniqueInput!]
+  update: [IntegrationUpdateWithWhereUniqueWithoutProjectInput!]
+  upsert: [IntegrationUpsertWithWhereUniqueWithoutProjectInput!]
+}
+
+input IntegrationUpdateWithoutProjectDataInput {
+  type: IntegrationType
+}
+
+input IntegrationUpdateWithWhereUniqueWithoutProjectInput {
+  where: IntegrationWhereUniqueInput!
+  data: IntegrationUpdateWithoutProjectDataInput!
+}
+
+input IntegrationUpsertWithWhereUniqueWithoutProjectInput {
+  where: IntegrationWhereUniqueInput!
+  update: IntegrationUpdateWithoutProjectDataInput!
+  create: IntegrationCreateWithoutProjectInput!
+}
+
+input IntegrationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [IntegrationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [IntegrationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [IntegrationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  type: IntegrationType
+
+  """All values that are not equal to given value."""
+  type_not: IntegrationType
+
+  """All values that are contained in given list."""
+  type_in: [IntegrationType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [IntegrationType!]
+  project: ProjectWhereInput
+}
+
+input IntegrationWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -20,11 +243,17 @@ scalar Long
 
 type Mutation {
   createProject(data: ProjectCreateInput!): Project!
+  createIntegration(data: IntegrationCreateInput!): Integration!
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+  updateIntegration(data: IntegrationUpdateInput!, where: IntegrationWhereUniqueInput!): Integration
   deleteProject(where: ProjectWhereUniqueInput!): Project
+  deleteIntegration(where: IntegrationWhereUniqueInput!): Integration
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
+  upsertIntegration(where: IntegrationWhereUniqueInput!, create: IntegrationCreateInput!, update: IntegrationUpdateInput!): Integration!
   updateManyProjects(data: ProjectUpdateInput!, where: ProjectWhereInput): BatchPayload!
+  updateManyIntegrations(data: IntegrationUpdateInput!, where: IntegrationWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  deleteManyIntegrations(where: IntegrationWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -58,6 +287,7 @@ type Project implements Node {
   id: ID!
   createdAt: DateTime!
   name: String!
+  integrations(where: IntegrationWhereInput, orderBy: IntegrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Integration!]
 }
 
 """A connection to a list of items."""
@@ -71,6 +301,16 @@ type ProjectConnection {
 }
 
 input ProjectCreateInput {
+  name: String!
+  integrations: IntegrationCreateManyWithoutProjectInput
+}
+
+input ProjectCreateOneWithoutIntegrationsInput {
+  create: ProjectCreateWithoutIntegrationsInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateWithoutIntegrationsInput {
   name: String!
 }
 
@@ -141,6 +381,24 @@ input ProjectSubscriptionWhereInput {
 
 input ProjectUpdateInput {
   name: String
+  integrations: IntegrationUpdateManyWithoutProjectInput
+}
+
+input ProjectUpdateOneWithoutIntegrationsInput {
+  create: ProjectCreateWithoutIntegrationsInput
+  connect: ProjectWhereUniqueInput
+  delete: Boolean
+  update: ProjectUpdateWithoutIntegrationsDataInput
+  upsert: ProjectUpsertWithoutIntegrationsInput
+}
+
+input ProjectUpdateWithoutIntegrationsDataInput {
+  name: String
+}
+
+input ProjectUpsertWithoutIntegrationsInput {
+  update: ProjectUpdateWithoutIntegrationsDataInput!
+  create: ProjectCreateWithoutIntegrationsInput!
 }
 
 input ProjectWhereInput {
@@ -254,6 +512,9 @@ input ProjectWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  integrations_every: IntegrationWhereInput
+  integrations_some: IntegrationWhereInput
+  integrations_none: IntegrationWhereInput
 }
 
 input ProjectWhereUniqueInput {
@@ -262,8 +523,11 @@ input ProjectWhereUniqueInput {
 
 type Query {
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
+  integrations(where: IntegrationWhereInput, orderBy: IntegrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Integration]!
   project(where: ProjectWhereUniqueInput!): Project
+  integration(where: IntegrationWhereUniqueInput!): Integration
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  integrationsConnection(where: IntegrationWhereInput, orderBy: IntegrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IntegrationConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -274,4 +538,5 @@ type Query {
 
 type Subscription {
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  integration(where: IntegrationSubscriptionWhereInput): IntegrationSubscriptionPayload
 }
