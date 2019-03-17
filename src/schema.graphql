@@ -1,6 +1,7 @@
 # import Project from "./generated/prisma.graphql"
 # import Integration from "./generated/prisma.graphql"
 # import IntegrationType from "./generated/prisma.graphql"
+# import IntegrationSubscriptionPayload from "./generated/prisma.graphql"
 
 type Query {
     projects(id: ID): [Project!]!
@@ -13,4 +14,8 @@ type Mutation {
     deleteProject(id: ID!): Project!
     addIntegration(type: IntegrationType!, project: String!): Integration!
     deleteIntegration(id: ID!): Integration!
+}
+
+type Subscription {
+    newIntegration: IntegrationSubscriptionPayload
 }

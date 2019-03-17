@@ -6,8 +6,7 @@ type Project {
 }
 
 enum IntegrationType {
-    GOOGLE_DBM
-    GOOGLE_ADWORDS
+    EMAIL
     FACEBOOK
 }
 

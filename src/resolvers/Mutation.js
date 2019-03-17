@@ -10,7 +10,7 @@ const addProject = function (parent, args, context, info) {
 const updateProject = function (parent, args, context, info) {
   if (!args.name) throw new Error(`There is no name in the input, so there's no such project`);
 
-  return context.db.mutation.updateProject({ data: { name: args. name }, where: { id: args.id } }, info);
+  return context.db.mutation.updateProject({ data: { name: args.name }, where: { id: args.id } }, info);
 };
 
 const deleteProject = function (parent, args, context, info) {
@@ -37,7 +37,6 @@ const addIntegration = function (parent, args, context, info) {
 const deleteIntegration = function (parent, args, context, info) {
   if (!args.id) throw new Error(`There is no such integration`);
   // TODO: add error handling
-  console.log('args delete integration', args)
   return context.db.mutation.deleteIntegration({ where: {  id: args.id } }, info );
 };
 
