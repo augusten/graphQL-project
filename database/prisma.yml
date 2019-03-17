@@ -11,14 +11,14 @@ datamodel:
 # Meaning http://myserver.com/default/default can be written as http://myserver.com.
 #endpoint: ''
 #endpoint: ''
-endpoint: https://us1.prisma.sh/auguste-nausedaite/dmp-graphql/dmp-graphql
+endpoint: ${env:PRISMA_ENDPOINT}
 
 # OPTIONAL
 # The secret is used to create JSON web tokens (JWTs). These tokens need to be
 # attached in the `Authorization` header of HTTP requests against the Prisma endpoint.
 # WARNING: If the secret is not provided, the Prisma API can be accessed
 # without authentication!
-secret: mysecret123
+secret: ${env:PRISMA_SECRET}
 
 generate:
   - generator: graphql-schema
